@@ -1,0 +1,21 @@
+xarray
+xclim
+xsdba
+xesmf
+s3fs
+cdsapi
+ephem
+numpy
+pandas
+matplotlib
+geopandas
+scikit-learn
+scipy
+pyyaml
+netCDF4
+h5netcdf
+rioxarray
+shapely
+rasterio
+# esmpy must be installed via conda:
+# conda install -c conda-forge esmpy

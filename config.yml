@@ -1,0 +1,57 @@
+location:
+  name: "central_bc"
+  lat_min: 51.0
+  lat_max: 54.0
+  lon_min: -125.0
+  lon_max: -120.0
+
+cmip6:
+  models:
+    - CanESM5
+    - MPI-ESM1-2-HR
+    - ACCESS-CM2
+  scenarios:
+    - ssp245
+    - ssp585
+  historical_period: [1980, 2014]
+  future_period: [2015, 2100]
+
+bias_correction:
+  method: MBCn
+  nquantiles: 50
+  # Future scenarios corrected in sequential 35-year windows matching
+  # the historical training period length (see script 04).
+  window_size: 35
+
+fwi:
+  season_start: "04-01"
+  season_end: "10-31"
+
+downscaling:
+  # Mulverhill et al. (2025) burn probability epochs available for download:
+  # baseline, ssp126_2021-2040, ssp126_2041-2060, ssp126_2061-2080, ssp126_2081-2100
+  # ssp245_*, ssp370_*, ssp585_* (same four epochs each)
+  # Script 07 currently uses baseline + ssp585_2081-2100 as demonstration.
+  # Add additional epoch paths here and extend script 07 to loop over them.
+  demonstration_scenario: "ssp585"
+  demonstration_epoch: "2081-2100"
+
+data:
+  raw:
+    era5_land_hourly: "data/raw/era5_land_hourly"
+    cmip6: "data/raw/cmip6"
+    nbac: "data/raw/nbac"
+    nfdb: "data/raw/nfdb"
+    landcover: "data/raw/landcover"
+    wildfire_landsat: "data/raw/wildfire_landsat"
+    burn_probability:
+      baseline: "data/raw/burn_probability/baseline/CA_Forest_Burn_Probability_baseline_1991-2020.tif"
+      ssp585_2081_2100: "data/raw/burn_probability/ssp585_2081-2100/CA_Forest_Burn_Probability_SSP5-8.5_2081-2100.tif"
+  processed:
+    era5_land: "data/processed/era5_land"
+    cmip6_bias_corrected: "data/processed/cmip6_bias_corrected"
+    fwi: "data/processed/fwi"
+  outputs:
+    figures: "data/outputs/figures"
+    models: "data/outputs/models"
+    results: "data/outputs/results"
